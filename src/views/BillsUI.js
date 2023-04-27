@@ -26,10 +26,9 @@ const rows = (data) => {
     data=data.sort(function(a, b) {
       return  new Date(b.date).valueOf() - new Date(a.date).valueOf();
     });
-    let display=data.map(bill => row(bill)).join("");
-    return display;
+    return data.map(bill => row(bill)).join("");
   }
-  else{return ""}
+  else {return ""}
 }
 
 export default ({ data: bills, loading, error }) => {
