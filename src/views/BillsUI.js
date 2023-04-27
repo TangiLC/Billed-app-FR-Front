@@ -20,7 +20,16 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-  return (data && data.length) ? data.map(bill => row(bill)).join("") : ""
+  //return (data && data.length) ? data.map(bill => row(bill)).join("") : ""  
+  if (!data && !data.length){return ""}
+  else {
+    console.log(data.map(b=> new Date(b.datum).valueOf()))  //tri croissant selon date
+    data=data.sort(function(a, b) {
+      return  new Date(a.datum).valueOf() - new Date(b.datum).valueOf();
+    });
+    let display=data.map(bill => row(bill)).join("");
+    return display;
+  }
 }
 
 export default ({ data: bills, loading, error }) => {
