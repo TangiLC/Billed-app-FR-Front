@@ -25,7 +25,7 @@ const rows = (data) => {
   else {
     console.log(data.map(b=> new Date(b.datum).valueOf()))  //tri croissant selon date
     data=data.sort(function(a, b) {
-      return  new Date(a.datum).valueOf() - new Date(b.datum).valueOf();
+      return  new Date(b.datum).valueOf() - new Date(a.datum).valueOf();
     });
     let display=data.map(bill => row(bill)).join("");
     return display;

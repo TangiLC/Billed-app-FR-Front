@@ -38,7 +38,7 @@ export default class {
             try {
               return {
                 ...doc,
-                datum:doc.date,   //#############date ms from 1970
+                datum: doc.date,   //#############date ms from 1970
                 date: formatDate(doc.date),
                 status: formatStatus(doc.status)
               }
