@@ -24,7 +24,7 @@ const rows = (data) => {
   if (data && data.length){
     console.log(data.map(b=> new Date(b.date).valueOf()))  //tri décroissant selon date
     data=data.sort(function(a, b) {
-      return  new Date(a.date).valueOf() - new Date(b.date).valueOf();
+      return  new Date(b.date).valueOf() - new Date(a.date).valueOf();
     });
     let display=data.map(bill => row(bill)).join("");
     return display;
