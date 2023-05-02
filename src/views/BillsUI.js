@@ -20,11 +20,10 @@ const row = (bill) => {
   }
 
 const rows = (data) => {
-  //return (data && data.length) ? data.map(bill => row(bill)).join("") : ""  
-  if (data && data.length){
-    console.log(data.map(b=> new Date(b.date).valueOf()))  //tri décroissant selon date
+  //return (data && data.length) ? data.map(bill => row(bill)).join("") : "" 
+  if (data && data.length){         //sorting data by date (reverse chronology)
     data=data.sort(function(a, b) {
-      return  new Date(b.date).valueOf() - new Date(a.date).valueOf();
+      return  new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime();
     });
     return data.map(bill => row(bill)).join("");
   }
@@ -34,7 +33,7 @@ const rows = (data) => {
 export default ({ data: bills, loading, error }) => {
   
   const modal = () => (`
-    <div class="modal fade" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal fade" testid="modaleFile" id="modaleFile" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
       <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
         <div class="modal-content">
           <div class="modal-header">

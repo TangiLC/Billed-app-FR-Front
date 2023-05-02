@@ -38,6 +38,7 @@ export default class {
             try {
               return {
                 ...doc,
+                rawDate : doc.date,
                 date: formatDate(doc.date),
                 status: formatStatus(doc.status)
               }
@@ -47,6 +48,7 @@ export default class {
               console.log(e,'for',doc)
               return {
                 ...doc,
+                rawDate : doc.date,
                 date: doc.date,
                 status: formatStatus(doc.status)
               }
