@@ -48,15 +48,18 @@ describe("Given I am connected as an employee", () => {
       document.body.append(root)
       router()
       window.onNavigate(ROUTES_PATH.Bills)
+      
 
-      const handleClick0 = jest.fn()
+      const handleClickIconEye = jest.fn()
       const eye = screen.getAllByTestId('icon-eye')
-      console.log(eye.length)
-      handleClick0.eye[0].handleClickIconEye()
-      expect(handleClick0.mocked).toHaveBeenCalled()
+      eye[0].addEventListener('click', handleClickIconEye.handleClickIconEye())
+      userEvent.click(eye[0])
+      
+      //expect(handleClick0.mocked).toHaveBeenCalled()
 
-      //const eyeModale = screen.getElementByTestId('modaleFile')
-      //expect(eyeModale.style.display).toBe("block")
+      const eyeModale = screen.getByTestId('modaleFile')
+      console.log(eyeModale.length)
+      expect(eyeModale.style.display).toBe("block")
     })
   })
 })
