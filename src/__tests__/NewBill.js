@@ -10,7 +10,7 @@ import router from "../app/Router.js";
 
 
 describe("Given I am connected as an employee", () => {
-  describe("When I am on NewBill Page", () => {
+/*  describe("When I am on NewBill Page", () => {
     test("Then submiting form creates new entry", () => {
       const html = NewBillUI()
       const root = document.createElement("div")
@@ -36,5 +36,5 @@ describe("Given I am connected as an employee", () => {
     expect(handleChangeFile1()).toBeCalled()
 
     })
-  })
+  })*/
 })

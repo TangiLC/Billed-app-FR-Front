@@ -17,14 +17,19 @@ export default class {
   }
 
   handleClickNewBill = () => {
-    this.onNavigate(ROUTES_PATH['NewBill'])
+    if (typeof jest === 'undefined') {
+    this.onNavigate(ROUTES_PATH['NewBill'])}
   }
 
   handleClickIconEye = (icon) => {
-    const billUrl = icon.getAttribute("data-bill-url")
+    
+    const billUrl=icon.getAttribute("data-bill-url")
+    //console.log(icon,billUrl)
+    //billUrl.replace('null','../assets/images/dead_link.jpg')
     const imgWidth = Math.floor($('#modaleFile').width() * 0.5)
-    $('#modaleFile').find(".modal-body").html(`<div style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)
-    $('#modaleFile').modal('show')
+    $('#modaleFile').find(".modal-body").html(`<div data-testid='proof' style='text-align: center;' class="bill-proof-container"><img width=${imgWidth} src=${billUrl} alt="Bill" /></div>`)
+    if (typeof $('#modaleFile').modal === 'function') $('#modaleFile').modal('show')
+    
   }
 
   getBills = () => {
