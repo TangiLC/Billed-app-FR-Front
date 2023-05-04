@@ -19,6 +19,7 @@ export default class {
   handleClickNewBill = () => {
     if (typeof jest === 'undefined') {
     this.onNavigate(ROUTES_PATH['NewBill'])}
+    else{console.log('new Bill')}
   }
 
   handleClickIconEye = (icon) => {
