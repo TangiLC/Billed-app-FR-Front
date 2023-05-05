@@ -51,6 +51,8 @@ describe("Given I am connected as an employee", () => {
       const billsContainer= new Bills({document, navigate, store:null, bills, localStorage: window.localStorage });
       const eye = screen.getAllByTestId('icon-eye');    
       userEvent.click(eye[0])
+      let typeOff = typeof(eye[0].modal)
+      console.log(typeOff)
       const modalProof = screen.getByTestId('proof')
       expect(modalProof).not.toBe("")
     })
@@ -79,6 +81,7 @@ describe("Given I am connected as an employee", () => {
       const mockCorruptedBill=jest.fn(corruptedBillsContainer.getBills()) 
       mockCorruptedBill()
       console.log('done',bills.length)
+      expect(mockCorruptedBill).toHaveBeenCalled()
 
     })
   })
