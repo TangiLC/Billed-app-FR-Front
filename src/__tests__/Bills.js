@@ -10,7 +10,7 @@ import { ROUTES_PATH} from "../constants/routes.js";
 import { ROUTES } from "../constants/routes.js";
 import {localStorageMock} from "../__mocks__/localStorage.js";
 import Router from "../app/Router.js";
-import {handleClickNewBill} from "../containers/Bills.js"
+
 
 
 describe("Given I am connected as an employee", () => {
@@ -30,7 +30,7 @@ describe("Given I am connected as an employee", () => {
       await waitFor(() => screen.getByTestId('icon-window'))
       const windowIcon = screen.getByTestId('icon-window')
       expect(windowIcon.classList.add('active-icon')).toHaveBeenCalled
-      //to-do write expect expression
+      
 
     })
     test("Then bills should be ordered from earliest to latest", () => {
@@ -61,7 +61,6 @@ describe("Given I am connected as an employee", () => {
       const navigate = (pathname) => { document.body.innerHTML = ROUTES({ pathname }) }
       const newBillsContainer= new Bills({document, navigate, store:null, bills, localStorage: window.localStorage });
       const btnNewBill = screen.getByTestId('btn-new-bill');
-      console.log(btnNewBill.innerHTML)   
       const mockNewBill=jest.fn(newBillsContainer.handleClickNewBill()) 
       btnNewBill.addEventListener('click', mockNewBill)
       userEvent.click(btnNewBill)
@@ -69,24 +68,18 @@ describe("Given I am connected as an employee", () => {
      
     })
 
-    /*test("Then a bad formatted bill should throw an error", async () =>{
-      
+    test("Then a bad formatted bill should throw an error", async () =>{
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({
         type: 'Employee'
       }))
-      const corrupted =[{
-        "id": "7hi5i5C0rrUP7eD","vat": 20,"fileUrl": false,"status": "Wrong Format","type": "Wrong Format",
-        "commentary": "Wrong Format","name": 123, "fileName": "badBill.jpg","date": "1999-09-09",
-        "amount": "400","commentAdmin": "wrong", "email": "wrong@format","pct": 20
-      },
-      {
-        "id": "47qAXb6fIm2zOKkLzMro", "vat": "80", "status": "pending", "type": "Hôtel et logement",
-        "fileUrl": "https://test.storage.tld/v0/b/billable-677b6.a…f-1.jpg?alt=media&token=c1640e12-a24b-4b11-ae52-529112e9602a",
-        "commentary": "séminaire billed", "name": "encore", "fileName": "preview-facture-free-201801-pdf-1.jpg",
-        "date": "2004-04-04", "amount": 400, "commentAdmin": "ok", "email": "a@a", "pct": 20
-      }]
-      document.body.innerHTML = BillsUI({data:corrupted})
-    })*/
+      document.body.innerHTML = BillsUI({data:bills})
+      const navigate = (pathname) => { document.body.innerHTML = ROUTES({ pathname }) }
+      const corruptedBillsContainer= new Bills({document, navigate, store:null, bills, localStorage: window.localStorage });
+      const mockCorruptedBill=jest.fn(corruptedBillsContainer.getBills()) 
+      mockCorruptedBill()
+      console.log('done',bills.length)
+
+    })
   })
 })

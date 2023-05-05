@@ -37,7 +37,7 @@ export default class {
     if (this.store) {
       return this.store
       .bills()
-      .list()
+      .list()    
       .then(snapshot => {
         const bills = snapshot
           .map(doc => {
