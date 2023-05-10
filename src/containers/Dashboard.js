@@ -148,7 +148,7 @@ export default class {
     }
 
     bills.forEach(bill => {
-      $(`#open-bill${bill.id}`).unbind('click')      //erase previous listener before add new
+      $(`#open-bill${bill.id}`).off('click')      //erase previous listener before add new
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
 
