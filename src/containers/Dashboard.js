@@ -88,23 +88,24 @@ export default class {
   handleEditTicket(e, bill, bills) {
     if (this.counter === undefined || this.id !== bill.id) this.counter = 0
     if (this.id === undefined || this.id !== bill.id) this.id = bill.id
-    if (this.counter % 2 === 0) {
-      bills.forEach(b => {
-        $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })
-      })
-      $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })
-      $('.dashboard-right-container div').html(DashboardFormUI(bill))
-      $('.vertical-navbar').css({ height: '150vh' })
-      this.counter ++
-    } else {
+    if (this.counter % 2 != 0) {      
       $(`#open-bill${bill.id}`).css({ background: '#0D5AE5' })
-
       $('.dashboard-right-container div').html(`
         <div id="big-billed-icon" data-testid="big-billed-icon"> ${BigBilledIcon} </div>
       `)
-      $('.vertical-navbar').css({ height: '120vh' })
+      $('.vertical-navbar').css({ height: '120vh' })    
+      this.counter =0
+    }     
+    else {bills.forEach(b => {
+        $(`#open-bill${b.id}`).css({ background: '#0D5AE5' })    //reset bg blue for each
+      })
+      $(`#open-bill${bill.id}`).css({ background: '#2A2B35' })   //set bg dark for selected
+      $('.dashboard-right-container div').html(DashboardFormUI(bill))
+      $('.vertical-navbar').css({ height: '150vh' })
+      bills.forEach(b => {b.counter=0})
       this.counter ++
     }
+
     $('#icon-eye-d').click(this.handleClickIconEye)
     $('#btn-accept-bill').click((e) => this.handleAcceptSubmit(e, bill))
     $('#btn-refuse-bill').click((e) => this.handleRefuseSubmit(e, bill))
@@ -131,22 +132,23 @@ export default class {
   }
 
   handleShowTickets(e, bills, index) {
-    if (this.counter === undefined || this.index !== index) this.counter = 0
+    if (this.countOpen === undefined || this.index !== index) this.countOpen = 0
     if (this.index === undefined || this.index !== index) this.index = index
-    if (this.counter % 2 === 0) {
+    if (this.countOpen % 2 === 0) {
       $(`#arrow-icon${this.index}`).css({ transform: 'rotate(0deg)'})
       $(`#status-bills-container${this.index}`)
         .html(cards(filteredBills(bills, getStatus(this.index))))
-      this.counter ++
+      this.countOpen ++
     }  /* istanbul ignore next */
     else {    
       $(`#arrow-icon${this.index}`).css({ transform: 'rotate(90deg)'})
       $(`#status-bills-container${this.index}`)
         .html("")
-      this.counter ++
+      this.countOpen ++
     }
 
     bills.forEach(bill => {
+      $(`#open-bill${bill.id}`).unbind('click')      //erase previous listener before add new
       $(`#open-bill${bill.id}`).click((e) => this.handleEditTicket(e, bill, bills))
     })
 

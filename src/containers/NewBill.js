@@ -16,7 +16,7 @@ export default class NewBill {
     new Logout({ document, localStorage, onNavigate })
   }
   handleChangeFile = e => {
-    e.preventDefault()
+    if (typeof jest === 'undefined') {e.preventDefault()}
     let fileQuery= this.document.querySelector(`input[data-testid="file"]`)
     const file = fileQuery.files[0]
     const filePath = e.target.value.split(/\\/g)
@@ -54,8 +54,9 @@ export default class NewBill {
     }
   }
   handleSubmit = e => {
-    e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
+    if (typeof jest === 'undefined') {e.preventDefault()
+    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', 
+      e.target.querySelector(`input[data-testid="datepicker"]`).value)}
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
       email,

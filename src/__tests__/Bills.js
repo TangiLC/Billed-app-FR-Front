@@ -41,6 +41,10 @@ describe("Given I am connected as an employee", () => {
       expect(dates).toEqual(datesSorted)
     })
 
+    /*test('should match snapshot', () => {
+        expect(Bills.getBills.snapshot).toMatchInlineSnapshot()
+    })*/
+
     test("Then a click on iconeye should open modal", async () =>{
       Object.defineProperty(window, 'localStorage', { value: localStorageMock })
       window.localStorage.setItem('user', JSON.stringify({
@@ -51,17 +55,21 @@ describe("Given I am connected as an employee", () => {
       const billsContainer= new Bills({document, navigate, store:null, bills, localStorage: window.localStorage });
       const eye = screen.getAllByTestId('icon-eye');    
       userEvent.click(eye[0])
-      let typeOff = typeof(eye[0].modal)
-      console.log(typeOff)
-      const modalProof = screen.getByTestId('proof')
-      expect(modalProof).not.toBe("")
+      
+      const modaleProof = screen.getByTestId('proof')
+      expect(modaleProof.innerHTML).not.toBe("")
+      
     })
 
     test("Then a click on NewBill should open NewBill form", async () =>{
       
       document.body.innerHTML = BillsUI({data:bills});
-      const navigate = (pathname) => { document.body.innerHTML = ROUTES({ pathname }) }
-      const newBillsContainer= new Bills({document, navigate, store:null, bills, localStorage: window.localStorage });
+      window.localStorage.setItem('user', JSON.stringify({
+        type: 'Employee'
+      }))
+      const onNavigate = (pathname) => { document.body.innerHTML = ROUTES({ pathname }) }
+      
+      const newBillsContainer= new Bills({document, onNavigate, store:null, bills, localStorage: window.localStorage });
       const btnNewBill = screen.getByTestId('btn-new-bill');
       const mockNewBill=jest.fn(newBillsContainer.handleClickNewBill()) 
       btnNewBill.addEventListener('click', mockNewBill)
@@ -75,12 +83,18 @@ describe("Given I am connected as an employee", () => {
       window.localStorage.setItem('user', JSON.stringify({
         type: 'Employee'
       }))
-      document.body.innerHTML = BillsUI({data:bills})
+      let corrupted = [{  //corrupted file on purpose missing name, email, and wrong format for most elems
+        "id": "C0rrUP7eDF1Le","vat": NaN,"fileUrl": false,"status": "Wrong Format","type": "Wrong Format",
+        "commentary": "Wrong Format", "fileName": "badBill.txt","date": "1999-09-09",
+        "amount": "NaN","commentAdmin": "wrong", "pct": NaN
+      }]
+
+      document.body.innerHTML = BillsUI({data:corrupted})
       const navigate = (pathname) => { document.body.innerHTML = ROUTES({ pathname }) }
-      const corruptedBillsContainer= new Bills({document, navigate, store:null, bills, localStorage: window.localStorage });
+      const corruptedBillsContainer= new Bills({document, navigate, store:null, corrupted, localStorage: window.localStorage });
       const mockCorruptedBill=jest.fn(corruptedBillsContainer.getBills()) 
       mockCorruptedBill()
-      console.log('done',bills.length)
+      console.log('done',corrupted.length)
       expect(mockCorruptedBill).toHaveBeenCalled()
 
     })
