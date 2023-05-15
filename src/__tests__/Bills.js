@@ -94,7 +94,6 @@ describe("Given I am connected as an employee", () => {
       const corruptedBillsContainer= new Bills({document, navigate, store:null, corrupted, localStorage: window.localStorage });
       const mockCorruptedBill=jest.fn(corruptedBillsContainer.getBills()) 
       mockCorruptedBill()
-      console.log('done',corrupted.length)
       expect(mockCorruptedBill).toHaveBeenCalled()
 
     })

@@ -1,6 +1,7 @@
 import { ROUTES_PATH } from '../constants/routes.js'
 import Logout from "./Logout.js"
 
+
 export default class NewBill {
   constructor({ document, onNavigate, store, localStorage }) {
     this.document = document
@@ -8,7 +9,7 @@ export default class NewBill {
     this.store = store
     const formNewBill = this.document.querySelector(`form[data-testid="form-new-bill"]`)
     formNewBill.addEventListener("submit", this.handleSubmit)
-    const file = this.document.querySelector(`input[data-testid="file"]`)
+    const file = this.document.querySelector(`input[data-testid="uploadFile"]`)
     file.addEventListener("change", this.handleChangeFile)
     this.fileUrl = null
     this.fileName = null
@@ -17,21 +18,10 @@ export default class NewBill {
   }
   handleChangeFile = e => {
     if (typeof jest === 'undefined') {e.preventDefault()}
-    let fileQuery= this.document.querySelector(`input[data-testid="file"]`)
-    const file = fileQuery.files[0]
+
+    const file = this.document.querySelector(`input[data-testid="uploadFile"]`).files[0]
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
-    console.log(fileName)
-    const fileType = fileName.split('.')[1]
-    console.log(fileType)
-       if(fileType !='jpg' && fileType !='jpeg' && fileType !='png'){
-        console.log('wrong file type')
-        fileQuery.value="";
-        setTimeout(function() {
-          fileQuery.placeholder='Type de fichier invalide'
-        }, 3000);
-       }
-    if (fileQuery.value!=""){
     const formData = new FormData()
     const email = JSON.parse(localStorage.getItem("user")).email
     formData.append('file', file)
@@ -51,12 +41,12 @@ export default class NewBill {
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
-    }
+    
   }
   handleSubmit = e => {
-    if (typeof jest === 'undefined') {e.preventDefault()
-    console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', 
-      e.target.querySelector(`input[data-testid="datepicker"]`).value)}
+    if (typeof jest === 'undefined') {e.preventDefault()}
+    //if (this.fileUrl ==='undefined') {this.fileUrl ='./src/assets/images/test.jpg';}
+    //console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
       email,
@@ -71,8 +61,9 @@ export default class NewBill {
       fileName: this.fileName,
       status: 'pending'
     }
+    //console.log(bill)
     this.updateBill(bill)
-    this.onNavigate(ROUTES_PATH['Bills'])
+    if (typeof jest === 'undefined') {this.onNavigate(ROUTES_PATH['Bills'])}
   }
 
   // not need to cover this function by tests

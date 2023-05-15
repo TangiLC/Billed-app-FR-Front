@@ -54,15 +54,15 @@ export default () => {
                     <textarea class="form-control blue-border" data-testid="commentary" rows="3"></textarea>
                   </div>
                   <div class="col-half">
-                    <label for="file" class="bold-label">Justificatif</label>
-                    <input required type="file" class="form-control blue-border" data-testid="file" />
+                    <label for="uploadFile" class="bold-label">Justificatif</label>
+                    <input required type="file" class="form-control blue-border" data-testid="uploadFile" accept=".jpg, .jpeg, .png"/>
                   </div>
                 </div>
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="col-half">
-                  <button type="submit" id='btn-send-bill' class="btn btn-primary">Envoyer</button>
+                  <button type="submit" id='btn-send-bill' class="btn btn-primary" data-testid="btn-submit">Envoyer</button>
                 </div>
               </div>
             </div>
