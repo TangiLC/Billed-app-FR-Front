@@ -11,7 +11,7 @@ export const bills = [
   "date": "2004-04-04",
   "amount": 400,
   "commentAdmin": "ok",
-  "email": "a@a",
+  "email": "a.a@a",
   "pct": 20
 },
 {
@@ -23,7 +23,7 @@ export const bills = [
   "commentary": "plop",
   "pct": 20,
   "type": "Transports",
-  "email": "a@a",
+  "email": "a.a@a",
   "fileUrl": "https://test.storage.tld/v0/b/billable-677b6.a…61.jpeg?alt=media&token=7685cd61-c112-42bc-9929-8a799bb82d8b",
   "date": "2001-01-01",
   "status": "refused",
