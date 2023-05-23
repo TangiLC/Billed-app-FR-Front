@@ -27,23 +27,23 @@ export default () => {
                   </div>
                   <div class="col-half">
                     <label for="expense-name" class="bold-label">Nom de la dépense</label>
-                    <input type="text" class="form-control blue-border" data-testid="expense-name" placeholder="Vol Paris Londres" />
+                    <input required type="text" class="form-control blue-border" data-testid="expense-name" placeholder="Vol Paris Londres" />
                   </div>
                   <div class="col-half">
                     <label for="datepicker" class="bold-label">Date</label>
                     <input required type="date" class="form-control blue-border" data-testid="datepicker" />
                   </div>
                   <div class="col-half">
-                    <label for="amount" class="bold-label">Montant TTC </label>
+                    <label for="amount" class="bold-label">Montant TTC (€)</label>
                     <input required type="number" class="form-control blue-border input-icon input-icon-right" data-testid="amount" placeholder="348"/>
                   </div>
                   <div class="col-half-row">
                     <div class="flex-col"> 
-                      <label for="vat" class="bold-label">TVA</label>
+                      <label for="vat" class="bold-label">Montant TVA (€)</label>
                       <input type="number" class="form-control blue-border" data-testid="vat" placeholder="70" />
                     </div>
                     <div class="flex-col">
-                      <label for="pct" class="white-text">%</label>
+                      <label for="pct" class="bold-label">Taux TVA (%)</label>
                       <input required type="number" class="form-control blue-border" data-testid="pct" placeholder="20" />
                     </div>
                   </div>
@@ -57,14 +57,16 @@ export default () => {
                     <label for="uploadFile" class="bold-label">Justificatif</label>
                     <input required type="file" class="form-control blue-border" data-testid="uploadFile" accept=".jpg, .jpeg, .png"/>
                   </div>
-                </div>
-            </div>
+                
+            
             <div class="row">
-              <div class="col-md-6">
-                <div class="col-half">
+              <div class="col-half-row">
+                <div class="col-md-2"></div>
+                <div class="col-md-10">
                   <button type="submit" id='btn-send-bill' class="btn btn-primary" data-testid="btn-submit">Envoyer</button>
                 </div>
               </div>
+            </div></div>
             </div>
           </form>
         </div>

@@ -20,6 +20,16 @@ export default class NewBill {
     if (typeof jest === 'undefined') {e.preventDefault()}
 
     const file = this.document.querySelector(`input[data-testid="uploadFile"]`).files[0]
+
+    let validFileFormat = file.type.includes("image/png") ||
+            file.type.includes("image/jpg") || 
+            file.type.includes("image/jpeg")
+
+  if (!validFileFormat) {
+    file.value = "";
+    alert("Format de Fichier invalide. Les formats autorisés sont : .jpeg, .jpg, .png")
+  }
+  else {
     const filePath = e.target.value.split(/\\/g)
     const fileName = filePath[filePath.length-1]
     const formData = new FormData()
@@ -36,16 +46,16 @@ export default class NewBill {
         }
       })
       .then(({fileUrl, key}) => {
-        console.log(fileUrl)
+        //console.log(fileUrl)
         this.billId = key
         this.fileUrl = fileUrl
         this.fileName = fileName
       }).catch(error => console.error(error))
-    
+    }
   }
+
   handleSubmit = e => {
     if (typeof jest === 'undefined') {e.preventDefault()}
-    //if (this.fileUrl ==='undefined') {this.fileUrl ='./src/assets/images/test.jpg';}
     //console.log('e.target.querySelector(`input[data-testid="datepicker"]`).value', e.target.querySelector(`input[data-testid="datepicker"]`).value)
     const email = JSON.parse(localStorage.getItem("user")).email
     const bill = {
@@ -66,7 +76,6 @@ export default class NewBill {
     if (typeof jest === 'undefined') {this.onNavigate(ROUTES_PATH['Bills'])}
   }
 
-  // not need to cover this function by tests
   updateBill = (bill) => {
     if (this.store) {
       this.store

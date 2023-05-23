@@ -1,18 +1,23 @@
 .form-newbill-container {
   width: 100%;
+  min-height: 65vh;
 }
 
 .col-half {
-  margin:auto;
-  width: 75%;
+  /*margin:auto;*/
+  width: 80%;
   margin-top: 16px;
 }
 
 .col-half-row {
-  display:flex;
-  width: 75%;
-  margin-left: 20px;
+  display: flex;
+  width: 80%;
   margin-top: 16px;
+  gap: 15px;
+}
+
+.col-md-10 {
+  padding-right: 3px;
 }
 
 .blue-border {
@@ -30,7 +35,8 @@ label {
 }
 
 .flex-col {
-  margin-left: 50px;
+  margin-left: 0px;
+  width: 100%;
 }
 
 .white-text {
@@ -38,7 +44,8 @@ label {
 }
 
 #btn-send-bill {
-  width: 100px;
+  margin:auto;
+  width: 100%;
   background-color: #0E5AE5;
   font-style: normal;
   font-weight: 500;
