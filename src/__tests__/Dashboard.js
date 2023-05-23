@@ -6,7 +6,7 @@ import {fireEvent, screen, waitFor} from "@testing-library/dom"
 import userEvent from '@testing-library/user-event'
 import DashboardFormUI from "../views/DashboardFormUI.js"
 import DashboardUI from "../views/DashboardUI.js"
-import Dashboard, { filteredBills, cards } from "../containers/Dashboard.js"
+import Dashboard, { filteredBills, cards, card } from "../containers/Dashboard.js"
 import { ROUTES, ROUTES_PATH } from "../constants/routes"
 import { localStorageMock } from "../__mocks__/localStorage.js"
 import mockStore from "../__mocks__/store"
@@ -16,6 +16,17 @@ import router from "../app/Router"
 jest.mock("../app/store", () => mockStore)
 
 describe('Given I am connected as an Admin', () => {
+  describe('When I am on Dashboard page, there are bills, and the employee mail is processed', () => {
+    test('Then the 1st employee JohnDoe@a should be processed as JohnDoe', () => {
+      const testCard0 = card(bills[0])
+      expect(testCard0).toContain('JohnDoe')
+    })
+    test('Then the 2nd employee Jenny.Doe@a should be processed as Jenny Doe', () => {
+      const testCard1 = card(bills[1])
+      expect(testCard1).toContain('Jenny Doe')
+    })
+  })
+
   describe('When I am on Dashboard page, there are bills, and there is one pending', () => {
     test('Then, filteredBills by pending status should return 1 bill', () => {
       const filtered_bills = filteredBills(bills, "pending")
