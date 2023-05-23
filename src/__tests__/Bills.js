@@ -45,7 +45,14 @@ describe("Given I am connected as an employee", () => {
       const btnNewBill = screen.getByTestId("btn-new-bill")
       expect(btnNewBill.textContent).toBe("Nouvelle note de frais")
 
+      const onNavigate = (pathname) => {document.body.innerHTML = ROUTES({ pathname })}
+      const testBill = new Bills({document, onNavigate, store:bills, localStorage: window.localStorage})
+      const handleClickNewBill = jest.fn(testBill.handleClickNewBill())
+      btnNewBill.addEventListener("click", handleClickNewBill)
+
       fireEvent.click(btnNewBill);
+      expect(handleClickNewBill).toHaveBeenCalled()
+
       expect(document.body.innerHTML).not.toBe(BillsUI({ data: bills }))
     })//#########################################################################################
 
@@ -55,8 +62,8 @@ describe("Given I am connected as an employee", () => {
         document.body.innerHTML = BillsUI({ data: bills })
         
         const onNavigate = (pathname) => {document.body.innerHTML = ROUTES({ pathname })}
-        const store = bills
-        const testBill = new Bills({document, onNavigate, store, localStorage: window.localStorage})
+        
+        const testBill = new Bills({document, onNavigate, store:bills, localStorage: window.localStorage})
         $.fn.modal = jest.fn()
 
         const eyeIcon = screen.getAllByTestId("icon-eye")[0]
