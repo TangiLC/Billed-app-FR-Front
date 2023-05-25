@@ -23,8 +23,8 @@ const rows = (data) => {
   //return (data && data.length) ? data.map(bill => row(bill)).join("") : "" 
   if (data && data.length){         //sorting data by date (reverse chronology)
     data=data.sort(function(a, b) {
-      if (a.rawDate!=undefined){return  new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime();}
-      else {return new Date(b.date).valueOf() - new Date(a.date).valueOf()}
+      if (a.rawDate!=undefined){return  new Date(b.rawDate).getTime() - new Date(a.rawDate).getTime()}
+      else {return new Date(b.date).getTime() - new Date(a.date).getTime()}
     });
     return data.map(bill => row(bill)).join("");
   }
